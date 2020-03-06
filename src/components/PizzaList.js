@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 const selectUser = reduxState => {
   return reduxState.user;
@@ -12,6 +12,7 @@ const selectPizzas = reduxState => {
 };
 
 export default function PizzaList() {
+  const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const pizzas = useSelector(selectPizzas);
 
@@ -24,9 +25,20 @@ export default function PizzaList() {
       </p>
       <ul>
         {pizzas.map(pizza => {
+          const toggle = () => {
+            dispatch({
+              type: "TOGGLE_FAVORITE_PIZZA",
+              payload: pizza.id
+            });
+          };
+
           return (
             <li key={pizza.id}>
-              <strong>{pizza.name}</strong> ({pizza.description})<br />
+              <strong>{pizza.name}</strong> ({pizza.description}){" "}
+              <button onClick={toggle}>
+                {user.favorites.includes(pizza.id) ? "♥" : "♡"}
+              </button>
+              <br />
               <em>Bought {pizza.bought} times</em>
             </li>
           );
