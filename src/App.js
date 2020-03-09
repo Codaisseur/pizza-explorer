@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import PizzaList from "./components/PizzaList";
+import PizzaList from "./components/PizzaList/PizzaList";
 import AddPizzaForm from "./components/AddPizzaForm";
 
 function App() {
