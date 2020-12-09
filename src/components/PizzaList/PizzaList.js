@@ -1,6 +1,5 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-
 import "./PizzaList.scss";
 
 const selectUser = reduxState => {

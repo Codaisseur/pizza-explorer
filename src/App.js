@@ -6,9 +6,9 @@ import AddPizzaForm from "./components/AddPizzaForm";
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <PizzaList />
-      <AddPizzaForm />
+      {/* <AddPizzaForm /> */}
     </div>
   );
 }
