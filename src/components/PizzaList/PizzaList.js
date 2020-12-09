@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllPizzas } from "../../store/pizzas/selectors";
+import { toggleFavorite } from "../../store/user/actions";
 import "./PizzaList.scss";
 
 export default function PizzaList() {
@@ -9,6 +10,11 @@ export default function PizzaList() {
   const pizzas = useSelector(getAllPizzas);
   console.log(pizzas);
   const user = { favorites: [], name: "" };
+
+  const toggleFav = pizzaId => {
+    console.log("clicked!", pizzaId);
+    dispatch(toggleFavorite(pizzaId));
+  };
 
   return (
     <div className='PizzaList'>
@@ -19,13 +25,6 @@ export default function PizzaList() {
       </p>
       <ul className='Pizzas'>
         {pizzas.map(pizza => {
-          const toggle = () => {
-            dispatch({
-              type: "TOGGLE_FAVORITE_PIZZA",
-              payload: pizza.id,
-            });
-          };
-
           return (
             <li
               key={pizza.id}
@@ -33,7 +32,7 @@ export default function PizzaList() {
               style={{ backgroundImage: `url(${pizza.image})` }}
             >
               <button
-                onClick={toggle}
+                onClick={() => toggleFav(pizza.id)}
                 className={`FavToggle ${
                   user.favorites.includes(pizza.id) ? "fav" : ""
                 }`}
