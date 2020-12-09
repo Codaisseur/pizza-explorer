@@ -8,7 +8,7 @@ const selectUser = reduxState => {
 };
 
 const selectPizzas = reduxState => {
-  return reduxState.pizzas.slice().sort((a, b) => {
+  return reduxState.pizzas.pizzas.slice().sort((a, b) => {
     return b.bought - a.bought;
   });
 };
@@ -19,25 +19,25 @@ export default function PizzaList() {
   const pizzas = useSelector(selectPizzas);
 
   return (
-    <div className="PizzaList">
+    <div className='PizzaList'>
       <h1>Pizza Explorer</h1>
       <p>
         Welcome back, <strong>{user.name}</strong>! You have{" "}
         {user.favorites.length} favorite pizzas:
       </p>
-      <ul className="Pizzas">
+      <ul className='Pizzas'>
         {pizzas.map(pizza => {
           const toggle = () => {
             dispatch({
               type: "TOGGLE_FAVORITE_PIZZA",
-              payload: pizza.id
+              payload: pizza.id,
             });
           };
 
           return (
             <li
               key={pizza.id}
-              className="Pizza"
+              className='Pizza'
               style={{ backgroundImage: `url(${pizza.image})` }}
             >
               <button
@@ -48,7 +48,7 @@ export default function PizzaList() {
               >
                 {user.favorites.includes(pizza.id) ? "♥" : "♡"}
               </button>
-              <div className="Overlay">
+              <div className='Overlay'>
                 <strong>{pizza.name}</strong> ({pizza.description}) <br />
                 <em>Bought {pizza.bought} times</em>
               </div>

@@ -1,10 +1,16 @@
 // src/store/index.js
-import { createStore } from "redux";
-import reducer from "./reducer";
+import { createStore, combineReducers } from "redux";
+import userReducer from "./user/reducer";
+import pizzaReducer from "./pizzas/reducer";
 
 const enhancer =
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 
-const store = createStore(reducer, enhancer);
+const rootReducer = combineReducers({
+  user: userReducer,
+  pizzas: pizzaReducer,
+});
+
+const store = createStore(rootReducer, enhancer);
 
 export default store;
