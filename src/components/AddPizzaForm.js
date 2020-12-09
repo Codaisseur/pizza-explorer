@@ -1,30 +1,23 @@
 // src/components/AddPizzaForm.js
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { addPizzaAction } from "../store/pizzas/actions";
 
 export default function AddPizzaForm() {
-  const dispatch = useDispatch(); // placed inside the component
-
   const [name, set_name] = useState("");
   const [description, set_description] = useState("");
 
+  const dispatch = useDispatch();
+
+  // steps to add a pizza:
+  // 0. Set up the form -  DONE
+  // 1. Set up an action and dispatch it.
+  // 2. Set case in pizza reducer to handle this.
+
   const submit = event => {
-    // to make sure that the form does not redirect (which is normal browser behavior)
     event.preventDefault();
-
-    console.log("new pizza:", name, description);
-
-    dispatch({
-      type: "ADD_PIZZA",
-      payload: {
-        id: Math.random(),
-        name,
-        description
-      }
-    });
-
-    set_name("");
-    set_description("");
+    const action = addPizzaAction(name, description); // { type: 'ADD_PIZZA', payload: {...} }
+    dispatch(action);
   };
 
   return (
@@ -34,7 +27,7 @@ export default function AddPizzaForm() {
         <label>
           Name:{" "}
           <input
-            type="text"
+            type='text'
             value={name}
             onChange={e => set_name(e.target.value)}
           />
@@ -44,14 +37,14 @@ export default function AddPizzaForm() {
         <label>
           Description:{" "}
           <input
-            type="text"
+            type='text'
             value={description}
             onChange={e => set_description(e.target.value)}
           />
         </label>
       </p>
       <p>
-        <button type="submit">Add this pizza!</button>
+        <button type='submit'>Add this pizza!</button>
       </p>
     </form>
   );

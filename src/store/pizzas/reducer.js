@@ -1,10 +1,6 @@
 // src/store/reducer.js
 const initialState = {
-  user: {
-    name: "Helva",
-    favorites: [161235, 357311],
-  },
-  pizzas: [
+  list: [
     {
       id: 161235,
       name: "Pizza Margherita",
@@ -33,16 +29,25 @@ const initialState = {
         "https://img.static-rmg.be/a/food/image/q100/w480/h360/1087722/pizza-bianca-met-artisjok-en-mortadella.jpg",
     },
   ],
+  selected: null,
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case "ADD_PIZZA": {
-      // { name, id, description, bought, image } => a pizza object (action.payload)
-      const newPizza = { ...action.payload, bought: 0, image: "" };
-      return { ...state, pizzas: [...state.pizzas, newPizza] };
-    }
+      // state
+      // action => payload => { name, description };
+      const { name, description } = action.payload;
+      const newPizza = {
+        id: Math.floor(Math.random() * 10000),
+        name,
+        description,
+        bought: 100,
+        image: state.list[0].image,
+      };
 
+      return { ...state, list: [...state.list, newPizza] };
+    }
     case "TOGGLE_FAVORITE_PIZZA": {
       // what data do i need to make this happen?
       const id = action.payload;

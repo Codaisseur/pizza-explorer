@@ -1,21 +1,14 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { getAllPizzas } from "../../store/pizzas/selectors";
 import "./PizzaList.scss";
-
-const selectUser = reduxState => {
-  return reduxState.user;
-};
-
-const selectPizzas = reduxState => {
-  return reduxState.pizzas.pizzas.slice().sort((a, b) => {
-    return b.bought - a.bought;
-  });
-};
 
 export default function PizzaList() {
   const dispatch = useDispatch();
-  const user = useSelector(selectUser);
-  const pizzas = useSelector(selectPizzas);
+  // const user = useSelector(selectUser);
+  const pizzas = useSelector(getAllPizzas);
+  console.log(pizzas);
+  const user = { favorites: [], name: "" };
 
   return (
     <div className='PizzaList'>
